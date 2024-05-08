@@ -48,12 +48,13 @@ class Queue
 
         void Display()
         {
-            int* head = &front;
-            while (head != &rear)
+            int current = front + 1;
+            while (current <= rear)
             {
-                head++;
-                std::cout << *head << " -> "; 
+                std::cout << arr[current] << " -> ";
+                current++;
             }
+            std::cout << "null" << std::endl;
         }
 };
 
@@ -92,6 +93,7 @@ int main()
             continue;
 
         case 3:
+            queue.Display();
             continue;
 
         default:
