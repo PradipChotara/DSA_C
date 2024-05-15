@@ -44,6 +44,20 @@ void Inorder(Node *root)
     return;
 }
 
+void Preorder(Node* root)
+{
+    if(root == NULL)
+    {
+        return;
+    }
+    else
+    {
+        cout << " " << root->data;
+    }
+    Preorder(root->left);
+    Preorder(root->right);
+}
+
 int main()
 {
     int choice = 1;
@@ -76,6 +90,8 @@ int main()
             continue;
 
         case 2:
+            Preorder(root);
+            continue;
 
         case 3:
             Inorder(root);
