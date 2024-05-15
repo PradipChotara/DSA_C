@@ -8,58 +8,59 @@ struct Node
     Node *right;
 };
 
-class Tree
+Node *newNode(int key)
 {
-private:
-    Node *root;
+    Node *node = new Node();
+    node->data = key;
+    node->left = node->right = NULL;
+    return node;
+}
 
-public:
-    Tree()
+Node *Insert(Node *root, int key)
+{
+    if (root == NULL)
     {
-        root = NULL;
+        return newNode(key);
     }
+    if (key < root->data)
+    {
+        root->left = Insert(root->left, key);
+    }
+    if (key >= root->data)
+    {
+        root->right = Insert(root->right, key);
+    }
+    return root;
+}
 
-    void Insert(Node* root, int data)
+void Inorder(Node *root)
+{
+    if (root != NULL)
     {
-        if (root == NULL)
-        {
-            Node *node = new Node();
-            node->data = data;
-            node->left = NULL;
-            node->right = NULL;
-            root = node;
-        }
-        else
-        {
-            Node *current = root;
-            if(current->data > data)
-            {
-                //send to left
-                Insert(current->left,data);
-            }
-            else
-            {
-                //send to right
-                Insert(current->right,data);
-            }
-        }
+        Inorder(root->left);
+        cout << " " << root->data;
+        Inorder(root->right);
     }
-};
+    return;
+}
 
 int main()
 {
-    Tree *tree = new Tree();
     int choice = 1;
+
+    Node* root = NULL;
+    root = Insert(root,10);
+
     while (choice != 0)
     {
-        std::cout << "------------------" << std::endl;
+        std::cout << "\n------------------" << std::endl;
         std::cout << "Enter 1 to Insert : " << std::endl;
         std::cout << "Enter 2 to PreOrder : " << std::endl;
         std::cout << "Enter 3 to InOrder : " << std::endl;
         std::cout << "Enter 4 to PostOrder : " << std::endl;
         std::cout << "Enter 0 to EXIT : " << std::endl;
         std::cin >> choice;
-        std::cout << "------------------" << std::endl;
+        std::cout << "\n------------------" << std::endl;
 
         int val;
 
@@ -71,25 +72,13 @@ int main()
         case 1:
             std::cout << "Enter Value to Push : " << std::endl;
             std::cin >> val;
-            // stack.push(val);
+            Insert(root,val);
             continue;
 
         case 2:
-            // val = stack.pop();
-            if (val == -1)
-            {
-                continue;
-            }
-            std::cout << "Poped value : " << val << std::endl;
-            continue;
 
         case 3:
-            // val = stack.peek();
-            if (val == -1)
-            {
-                continue;
-            }
-            std::cout << "Peeked value : " << val << std::endl;
+            Inorder(root);
             continue;
 
         default:
